@@ -204,13 +204,13 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy, AfterCon
 
     this.data = this.copyData.filter(d => {
 
-      const dKeys = Object.keys(d);
+      const dKeys = Object.keys(d) as any;
       const fKeys = Object.keys(this.filterConditions);
       const conditions = [0, 0, 0, 0]; // init
 
       fKeys.forEach( f => {
 
-        if (f in dKeys) {
+        if (dKeys.includes(f)) {
 
           const filter = this.filterConditions[f] as TableColumnFilter;
 
