@@ -1,0 +1,117 @@
+<ng-container *ngIf="showAddButton">
+  <div class="mb-sm-1" [ngClass]="leftPositionAddButton ? 'text-left' : 'text-right'">
+      <span class="btn btn-raised btn-warning" (click)="add()">{{addButtonText}}</span>
+  </div>
+</ng-container>
+
+<table class="table table-responsive-md table-striped" style="clear: both">
+  <thead>
+    <tr [ngClass]="isTableHeaderAlignCenter ? 'text-center' : ''">
+<!--      <th *ngIf="isIdColumn" class="valign-middle">&lt;!&ndash; &ndash;&gt;</th>-->
+      <th *ngFor="let itemHeader of columns" class="valign-middle" [colSpan]="!isActionColumn ? 2 : 1">
+        <span *ngIf="itemHeader.isSort" class="primary uf-pointer" (click)="sort(itemHeader.sysName)">
+          {{itemHeader.userName}}
+          <i class="ft-chevron-down" *ngIf="sortKey==itemHeader.sysName && sortOrder=='asc'"></i>
+          <i class="ft-chevron-up" *ngIf="sortKey==itemHeader.sysName && sortOrder=='desc'"></i>
+        </span>
+        <span *ngIf="!itemHeader.isSort">{{itemHeader.userName}}</span>
+      </th>
+      <th *ngIf="isActionColumn" class="valign-middle">{{actionColumnTitle}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- filter -->
+    <tr style="/*background: #fbfbfb;*/ border: 0" *ngIf="isFilter">
+<!--      <td *ngIf="isIdColumn">&lt;!&ndash; system column &ndash;&gt;</td>-->
+      <td *ngFor="let columnItem of columns" [colSpan]="!isActionColumn ? 2 : 1">
+        <lib-data-grid-filter *ngIf="columnItem.filter.on"
+                              [idGrid]="idGrid"
+                              (filterCondition)="getFilterCondition($event)"
+                              [column]="columnItem"></lib-data-grid-filter>
+      </td>
+      <td *ngIf="isActionColumn"><!-- system column --></td>
+    </tr>
+    <ng-container *ngIf="pagedItems">
+      <tr *ngFor="let item of pagedItems" [style.color]="trColor">
+<!--        <td *ngIf="isIdColumn">-->
+<!--          <div class="custom-control custom-checkbox m-0">-->
+<!--            <input type="checkbox" class="custom-control-input" id="item-{{item.id}}">-->
+<!--            <label class="custom-control-label" for="item-{{item.id}}"></label>-->
+<!--          </div>-->
+<!--        </td>-->
+        <!-- set color -->
+        <td *ngFor="let itemHeader of columns"
+            [style.color]="getTableColumnColor(itemHeader?.colorCondition, item[itemHeader.sysName])">
+              <ng-container *ngIf="itemHeader.type == 'currency'">
+                {{item[itemHeader.sysName] ? (item[itemHeader.sysName] | number) : '0.00'}}
+              </ng-container>
+              <ng-container *ngIf="itemHeader.type== 'date'">
+                {{item[itemHeader.sysName] ? (item[itemHeader.sysName] | date: itemHeader?.dateFormat || 'dd.LL.yyyy HH:mm:ss') : ''}}
+              </ng-container>
+              <ng-container *ngIf="itemHeader.type == 'boolean'">
+                {{item[itemHeader.sysName] ? '+' : '-'}}
+              </ng-container>
+              <ng-container *ngIf="itemHeader.type != 'date' && itemHeader.type != 'boolean' && itemHeader.type != 'currency'">
+                <!-- especially for lists -->
+                {{item[itemHeader.sysNameUser] ? item[itemHeader.sysNameUser] : (item[itemHeader.sysName] ? item[itemHeader.sysName] : '')}}
+              </ng-container>
+        </td>
+        <td *ngIf="isActionColumn">
+
+          <!-- View action -->
+          <ng-container *ngIf="canViewData">
+            <a class="p-0" data-original-title="" [title]="viewActionTitle" (click)="view(item)">
+              <i class="text-primary mr-2" [ngClass]="viewIconClass">
+                <ng-container *ngIf="!viewIconClass">
+                  View
+                </ng-container>
+              </i>
+            </a>
+          </ng-container>
+
+          <!-- Edit action -->
+          <ng-container *ngIf="canEditData">
+            <a class="p-0" data-original-title="" [title]="editActionTitle" (click)="edit(item)">
+              <i class="text-primary mr-2" [ngClass]="editIconClass">
+                <ng-container *ngIf="!editIconClass">
+                  Edit
+                </ng-container>
+              </i>
+            </a>
+          </ng-container>
+
+          <!-- Delete action -->
+          <ng-container *ngIf="canDeleteData">
+            <a class="text-danger p-0" data-original-title="" [title]="deleteActionTitle" (click)="remove(item.id || item)">
+              <i class="mr-2" [ngClass]="deleteIconClass">
+                 <ng-container *ngIf="!deleteIconClass">
+                  Delete
+                </ng-container>
+              </i>
+            </a>
+          </ng-container>
+
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+<ng-container *ngIf="isTotal && pagedItems">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <b>{{totalText}}: {{total |  number}}</b>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Paginator -->
+<ng-container *ngIf="pagedItems">
+  <lib-grid-paginator [pager]="pager" (selectedPage)="setPage($event)" *ngIf="isPaginator"></lib-grid-paginator>
+</ng-container>
+
+<ng-container *ngIf="!pagedItems">
+  <div role="alert" class="alert alert-secondary">
+    {{noDataMessage}}
+  </div>
+</ng-container>

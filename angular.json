@@ -121,6 +121,46 @@
           }
         }
       }
+    },
+    "@andrvm/data-grid": {
+      "root": "projects/andrvm/data-grid",
+      "sourceRoot": "projects/andrvm/data-grid/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/andrvm/data-grid/tsconfig.lib.json",
+            "project": "projects/andrvm/data-grid/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/andrvm/data-grid/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/andrvm/data-grid/src/test.ts",
+            "tsConfig": "projects/andrvm/data-grid/tsconfig.spec.json",
+            "karmaConfig": "projects/andrvm/data-grid/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/andrvm/data-grid/tsconfig.lib.json",
+              "projects/andrvm/data-grid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "libs"

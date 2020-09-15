@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@andrvm/data-grid": [
+        "dist/andrvm/data-grid"
+      ],
+      "@andrvm/data-grid/*": [
+        "dist/andrvm/data-grid/*"
+      ]
+    }
   }
 }

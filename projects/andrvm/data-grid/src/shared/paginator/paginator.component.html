@@ -1,0 +1,21 @@
+<ng-container *ngIf="pager.pages.length > 1">
+  <nav class="pagination-nav">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li *ngIf="pager.currentPage >1" class="page-item">
+        <a (click)="getPage(1)" class="page-link"><<</a>
+      </li>
+      <li *ngIf="pager.currentPage >1" class="page-item info">
+        <a (click)="getPage(pager.currentPage - 1)" class="page-link"><</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}"  class="page-item">
+        <a (click)="getPage(page)" class="ng2-smart-page-link page-link">{{page}}</a>
+      </li>
+      <li *ngIf="pager.currentPage !== pager.totalPages" class="page-item">
+        <a (click)="getPage(pager.currentPage + 1)" class="page-link">></a>
+      </li>
+      <li *ngIf="pager.currentPage !== pager.totalPages"  class="page-item">
+        <a (click)="getPage(pager.totalPages)" class="page-link">>></a>
+      </li>
+    </ul>
+  </nav>
+</ng-container>

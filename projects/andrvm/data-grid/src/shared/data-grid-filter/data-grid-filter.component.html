@@ -1,0 +1,42 @@
+<!-- String -->
+<ng-container *ngIf="column.filter.type=='string'">
+  <div class="input-group">
+    <input type="text"
+           class="form-control"
+           name="fString"
+           value=""
+           [formControl]="formControl"
+           placeholder="" />
+    <div class="input-group-append">
+      <span class="input-group-text" (click)="clear()"> x </span>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Boolean -->
+<ng-container *ngIf="column.filter.type=='boolean'">
+  <div class="form-check">
+    <input type="checkbox"
+         class="form-check-input"
+         name="fBoolean"
+         [formControl]="formControl" />
+  </div>
+</ng-container>
+
+<!-- List -->
+<ng-container *ngIf="column.filter.type=='list'">
+  <select name="fList" [formControl]="formControl" class="form-control"
+          *ngIf="column.filter.filterValues.length > 0">
+    <option value="-1">...</option>
+    <option *ngFor="let i of column.filter.filterValues" value="{{i.id}}">{{i.name}}</option>
+  </select>
+</ng-container>
+
+<!-- date -->
+<!--<ng-container *ngIf="column.filter.type=='date'">-->
+<!--  <mat-form-field>-->
+<!--    <input matInput [formControl]="formControl" [matDatepicker]="picker1" class="form-control">-->
+<!--    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker #picker1></mat-datepicker>-->
+<!--  </mat-form-field>-->
+<!--</ng-container>-->

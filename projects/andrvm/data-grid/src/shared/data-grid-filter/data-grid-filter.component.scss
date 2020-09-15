@@ -1,0 +1,19 @@
+:host .input-group-text {
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+:host .input-group-append {
+  position: absolute;
+  right: 0;
+  z-index: 999;
+}
+
+:host .input-group {
+  margin-bottom: 0;
+}
+
+:host .form-control {
+  padding-right: 25px;
+}

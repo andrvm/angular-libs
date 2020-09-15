@@ -1,0 +1,23 @@
+{
+  "name": "@andrvm/data-grid",
+  "version": "0.0.1",
+  "description": "A simple data-grid component for displaying json data with columns and an opportunity to manage with them",
+  "author": "Mamontov Andrey <andrvm@andrvm.ru>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrvm/simple-data-grid"
+  },
+  "homepage": "https://github.com/andrvm/simple-data-grid",
+  "keywords": [
+    "angular",
+    "data-grid"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^10.0.14",
+    "@angular/core": "^10.0.14"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}
