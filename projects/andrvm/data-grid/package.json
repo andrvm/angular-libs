@@ -5,12 +5,14 @@
   "author": "Mamontov Andrey <andrvm@andrvm.ru>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrvm/simple-data-grid"
+    "url": "https://github.com/andrvm/angular-libs"
   },
-  "homepage": "https://github.com/andrvm/simple-data-grid",
+  "homepage": "https://github.com/andrvm/angular-libs/tree/master/projects/andrvm/data-grid",
   "keywords": [
     "angular",
-    "data-grid"
+    "data-grid",
+    "table",
+    "json data"
   ],
   "license": "MIT",
   "peerDependencies": {
